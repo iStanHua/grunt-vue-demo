@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>首页</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable-style" content="blank">
+    <meta name="apple-mobile-web-app-title" content="">
+    <meta name="format-detection" content="telephone=no,email=no">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <!--build:css css/index.css-->
+    <link rel="stylesheet" type="text/css" href="css/base.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <!--endbuild-->
+    <!--[if lt IE 9]>
+    <script type="text/javscript" src="js/lib/html5shiv.js"></script>
+    <script type="text/javscript" src="js/lib/respond.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+    <div class="page home-page">
+        <div class="header">
+            <div class="title">首页</div>
+        </div>
+        <div class="content home-content">
+            <div class="wrapper">
+                <div class="section">
+                    <p>首页页面</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="navbar">
+                <a class="item active" data-name="home">
+                    <i class="icon i-home"><b>1</b></i>
+                    <span>首页</span>
+                </a>
+                <a class="item" data-name="mail">
+                    <i class="icon i-mail"><b>2</b></i>
+                    <span>消息</span>
+                </a>
+                <a class="item" data-name="plus">
+                    <i class="icon i-plus"></i>
+                </a>
+                <a class="item" data-name="find">
+                    <i class="icon i-find"><b>3</b></i>
+                    <span>发现</span>
+                </a>
+                <a class="item" data-name="user">
+                    <i class="icon i-user"><b>4</b></i>
+                    <span>我的</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script id="J_mailTmpl" type="text/html">
+        <div class="content mail-content">
+            <div class="wrapper">
+                <div class="section">
+                    <p>消息页面</p>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="J_findTmpl" type="text/html">
+        <div class="content find-content">
+            <div class="wrapper">
+                <div class="section">
+                    <p>发现页面</p>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="J_userTmpl" type="text/html">
+        <div class="content user-content">
+            <div class="wrapper">
+                <div class="listview">
+                    <a class="item">
+                        <div class="pos-left">
+                            <img src="images/logo.png" />
+                        </div>
+                        <p>51donate</p>
+                        <p class="des">暂无简介</p>
+                    </a>
+                </div>
+                <div class="gridview">
+                    <a class="item">
+                        <h2>0</h2>
+                        <p>义币</p>
+                    </a>
+                    <a class="item">
+                        <h2>0</h2>
+                        <p>捐赠</p>
+                    </a>
+                    <a class="item">
+                        <h2>0</h2>
+                        <p>求捐</p>
+                    </a>
+                </div>
+                <div class="groupview">
+                    <a class="item">
+                        <div class="pos-left">
+                            <i class="icon i-edit"></i>
+                        </div>
+                        <span>签到</span>
+                        <div class="pos-right">
+                            <div class="btn-icon icon-right">
+                                <span>签到赚义币</span>
+                                <i class="icon i-carat-right"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="groupview">
+                    <a class="item">
+                        <div class="pos-left">
+                            <i class="icon i-heart"></i>
+                        </div>
+                        <span>我的收藏</span>
+                        <div class="pos-right">
+                            <i class="icon i-carat-right"></i>
+                        </div>
+                    </a>
+                    <a class="item">
+                        <div class="pos-left">
+                            <i class="icon i-comment"></i>
+                        </div>
+                        <span>我的评论</span>
+                        <div class="pos-right">
+                            <i class="icon i-carat-right"></i>
+                        </div>
+                    </a>
+                    <a class="item">
+                        <div class="pos-left">
+                            <i class="icon i-location"></i>
+                        </div>
+                        <span>我的地址</span>
+                        <div class="pos-right">
+                            <i class="icon i-carat-right"></i>
+                        </div>
+                    </a>
+                    <a class="item">
+                        <div class="pos-left">
+                            <i class="icon i-cart"></i>
+                        </div>
+                        <span>我的订单</span>
+                        <div class="pos-right">
+                            <i class="icon i-carat-right"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="groupview">
+                    <a class="item">
+                        <div class="pos-left">
+                            <i class="icon i-edit"></i>
+                        </div>
+                        <span>意见反馈</span>
+                        <div class="pos-right">
+                            <i class="icon i-carat-right"></i>
+                        </div>
+                    </a>
+                </div>
+                <div class="groupview">
+                    <a class="item">
+                        <div class="pos-left">
+                            <i class="icon i-setting"></i>
+                        </div>
+                        <span>设置</span>
+                        <div class="pos-right">
+                            <i class="icon i-carat-right"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <!--build:js js/index.js-->
+    <script type="text/javascript" src="js/lib/vue.js"></script>
+    <script type="text/javascript" src="js/lib/vue-resource.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <!--endbuild-->
+</body>
+
+</html>

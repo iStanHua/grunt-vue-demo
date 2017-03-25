@@ -1,0 +1,43 @@
+.layer-publish {
+  background-color: rgba(230, 230, 230, 0.98);
+}
+.user-content {
+  font-size: 14px;
+}
+.user-content .listview {
+  margin-top: 10px;
+  background-color: #fff;
+}
+.user-content .listview .item {
+  padding-left: 80px;
+}
+.user-content .listview img {
+  width: 60px;
+  height: 60px;
+  background-color: #eee;
+  border-radius: 10px;
+}
+.user-content .listview p {
+  padding-top: 10px;
+  line-height: 20px;
+}
+.user-content .listview .des {
+  padding-top: 0;
+  padding-bottom: 8px;
+  font-size: 12px;
+  color: #999;
+}
+.user-content .gridview {
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+.user-content .gridview .item {
+  width: 33.333%;
+}
+.user-content .gridview p {
+  font-size: 12px;
+}
+.user-content .groupview {
+  margin-bottom: 10px;
+  background-color: #fff;
+}
