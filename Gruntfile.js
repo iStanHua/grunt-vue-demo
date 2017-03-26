@@ -58,7 +58,7 @@ module.exports = function(grunt) {
                     livereload: LIVERELOAD_PORT
                 },
                 files: ['**/*.html', 'less/**/*.less', 'js/**/*.js', 'images/**/*.{png,jpg,jpeg,gif,webp}'],
-                tasks: ['clean:dest', 'less', 'copy', 'uglify', 'useminPrepare', 'concat', 'cssmin', 'filerev', 'usemin', 'htmlmin', 'imagemin']
+                tasks: ['clean:dest', 'less', 'copy', 'imagemin', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'filerev', 'usemin', 'htmlmin']
             }
         },
         clean: {
@@ -83,30 +83,18 @@ module.exports = function(grunt) {
                     dot: true,
                     cwd: '<%= pkg.config.dev %>',
                     dest: '<%= pkg.config.dest %>',
-                    src: ['**/*', '!less/**/*', '!js/*.js', '!js/lib/debug/*.js', '!images/**/*.{png,jpg,jpeg,gif,webp}'],
+                    src: ['**/*', '!less/**/*', '!css/**/*', '!js/**/*', '!images/**/*.{png,jpg,jpeg,gif,webp}'],
                     filter: 'isFile'
                 }]
             }
         },
-        uglify: {
-            js: {
+        imagemin: {
+            img: {
                 files: [{
                     expand: true,
-                    dot: true,
-                    cwd: '<%= pkg.config.dev %>/js',
-                    dest: '<%= pkg.config.dest %>/js',
-                    src: ['{,*/}*.js', '!lib/{,*/}*.js', '!lib/debug/{,*/}*.js'],
-                    filter: 'isFile'
-                }]
-            }
-        },
-        cssmin: {
-            css: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= pkg.config.dev %>/css',
-                    src: ['**/*.css'],
-                    dest: '<%= pkg.config.dest %>/css'
+                    cwd: '<%= pkg.config.dev %>/images',
+                    src: ['**/*.{png,jpg,jpeg,gif,webp}'],
+                    dest: '<%= pkg.config.dest %>/images'
                 }]
             }
         },
@@ -125,16 +113,7 @@ module.exports = function(grunt) {
         useminPrepare: {
             options: {
                 root: '<%= pkg.config.dev %>',
-                dest: '<%= pkg.config.dest %>',
-                flow: {
-                    html: {
-                        steps: {
-                            js: ['concat'],
-                            css: ['concat', 'cssmin']
-                        },
-                        post: {}
-                    }
-                }
+                dest: '<%= pkg.config.dest %>'
             },
             html: ['<%= pkg.config.dest %>/**/*.html']
         },
@@ -163,16 +142,6 @@ module.exports = function(grunt) {
                     cwd: '<%= pkg.config.dest %>',
                     src: ['**/*.html'],
                     dest: '<%= pkg.config.dest %>'
-                }]
-            }
-        },
-        imagemin: {
-            img: {
-                files: [{
-                    expand: true,
-                    cwd: '<%= pkg.config.dev %>/images',
-                    src: ['**/*.{png,jpg,jpeg,gif,webp}'],
-                    dest: '<%= pkg.config.dest %>/images'
                 }]
             }
         },
@@ -218,14 +187,14 @@ module.exports = function(grunt) {
                 'clean:dest',
                 'less',
                 'copy',
-                'uglify',
+                'imagemin',
                 'useminPrepare',
                 'concat',
+                'uglify',
                 'cssmin',
                 'filerev',
                 'usemin',
                 'htmlmin',
-                'imagemin',
                 'connect:dist',
                 'watch:dist'
             ]);
