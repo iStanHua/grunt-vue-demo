@@ -9,13 +9,13 @@ vue + vue-resource
 
 ```
   npm install -g grunt-cli
-	npm install --save-dev grunt-usemin
 ```
 
 安装Grunt 和 grunt插件
 
 ```
 	npm install --save-dev grunt
+  
 	npm install --save-dev grunt-*
   
 ```
