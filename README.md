@@ -14,10 +14,11 @@ vue + vue-resource
 安装Grunt 和 grunt插件
 
 ```
-	npm install --save-dev grunt
-  
-	npm install --save-dev grunt-*
-  
+  npm install --save-dev grunt
+```
+
+```
+  npm install  --save-dev grunt-*
 ```
 
 compare the two commands following 
