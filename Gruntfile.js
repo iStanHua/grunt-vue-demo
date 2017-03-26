@@ -13,7 +13,6 @@ folderMount = function(connect, base) {
 };
 
 module.exports = function(grunt) {
-    // show elapsed time at the end
     require('time-grunt')(grunt);
 
     grunt.initConfig({
@@ -27,11 +26,11 @@ module.exports = function(grunt) {
                 options: {
                     port: 9000,
                     middleware: function(connect, options) {
-                        return [lrSnippet, folderMount(connect, 'src')];
+                        return [lrSnippet, folderMount(connect, 'dev')];
                     }
                 }
             },
-            dist: {
+            dest: {
                 options: {
                     port: 8000,
                     middleware: function(connect, options) {
@@ -46,45 +45,126 @@ module.exports = function(grunt) {
             },
             dev: {
                 options: {
-                    cwd: '<%= pkg.config.dev %>',
+                    cwd: '<%= pkg.config.src %>',
                     livereload: LIVERELOAD_PORT
                 },
                 files: ['**/*.html', 'less/**/*.less', 'js/**/*.js', 'images/**/*.{png,jpg,jpeg,gif,webp}'],
-                tasks: ['clean:dev', 'less']
+                tasks: [
+                    'clean:dev',
+                    'less',
+                    'copy:lib',
+                    'copy:tmp',
+                    'copy:dev',
+                    'useminPrepare',
+                    'concat',
+                    'filerev',
+                    'usemin',
+                    'clean:tmp'
+                ]
             },
-            dist: {
+            dest: {
                 options: {
-                    cwd: '<%= pkg.config.dev %>',
+                    cwd: '<%= pkg.config.src %>',
                     livereload: LIVERELOAD_PORT
                 },
                 files: ['**/*.html', 'less/**/*.less', 'js/**/*.js', 'images/**/*.{png,jpg,jpeg,gif,webp}'],
-                tasks: ['clean:dest', 'less', 'copy', 'imagemin', 'useminPrepare', 'concat', 'cssmin', 'uglify', 'filerev', 'usemin', 'htmlmin']
+                tasks: [
+                    'clean:dest',
+                    'less',
+                    'copy:lib',
+                    'uglify',
+                    'copy:dev',
+                    'useminPrepare',
+                    'concat',
+                    'filerev',
+                    'usemin',
+                    'clean:tmp',
+                    'copy:dest',
+                    'cssmin',
+                    'imagemin',
+                    'htmlmin',
+                    'clean:dev2'
+                ]
             }
         },
         clean: {
-            dev: ['.tmp', '<%= pkg.config.dev %>/css'],
-            dest: ['.tmp', '<%= pkg.config.dest %>']
+            tmp: ['.tmp'],
+            dev: ['.tmp', '<%= pkg.config.dest %>', '<%= pkg.config.dev %>/'],
+            dest: ['.tmp', '<%= pkg.config.dev %>', '<%= pkg.config.dest %>/'],
+            dev2: ['<%= pkg.config.dev %>']
         },
         less: {
             css: {
                 files: [{
                     expand: true,
-                    cwd: '<%= pkg.config.dev %>/less',
+                    cwd: '<%= pkg.config.src %>/less',
                     src: ['{,*/}*.less', '!{,*/}global.less', '!{,*/}mod-**.less'],
-                    dest: '<%= pkg.config.dev %>/css',
+                    dest: '<%= pkg.config.tmp %>/css',
                     ext: '.css'
                 }]
             }
         },
         copy: {
-            dist: {
+            lib: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= pkg.config.src %>/js',
+                    src: ['lib/*.js'],
+                    dest: '<%= pkg.config.tmp %>/js',
+                    filter: 'isFile'
+                }]
+            },
+            tmp: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= pkg.config.src %>/js',
+                    src: ['*.js'],
+                    dest: '<%= pkg.config.tmp %>/js',
+                    filter: 'isFile'
+                }]
+            },
+            dev: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= pkg.config.src %>',
+                    src: ['**/*', '!less/**/*.less', '!js/**/*.js'],
+                    dest: '<%= pkg.config.dev %>',
+                    filter: 'isFile'
+                }]
+            },
+            dest: {
                 files: [{
                     expand: true,
                     dot: true,
                     cwd: '<%= pkg.config.dev %>',
+                    src: ['**/*', '!css/**/*.css', '!images/**/*.{png,jpg,jpeg,gif,webp}'],
                     dest: '<%= pkg.config.dest %>',
-                    src: ['**/*', '!less/**/*', '!css/**/*', '!js/**/*', '!images/**/*.{png,jpg,jpeg,gif,webp}'],
                     filter: 'isFile'
+                }]
+            }
+        },
+        uglify: {
+            js: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= pkg.config.src %>/js',
+                    dest: '<%= pkg.config.tmp %>/js',
+                    src: ['{,*/}*.js', '!lib/{,*/}*.js'],
+                    filter: 'isFile'
+                }]
+            }
+        },
+        cssmin: {
+            css: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= pkg.config.dev %>/css',
+                    src: ['**/*.css'],
+                    dest: '<%= pkg.config.dest %>/css'
                 }]
             }
         },
@@ -104,32 +184,41 @@ module.exports = function(grunt) {
                 length: 8
             },
             css: {
-                src: '<%= pkg.config.dest %>/css/**/*.css'
+                src: '<%= pkg.config.dev %>/css/**/*.css'
             },
             js: {
-                src: ['<%= pkg.config.dest %>/js/**/*.js', '!<%= pkg.config.dest %>/js/lib/*.js']
+                src: ['<%= pkg.config.dev %>/js/**/*.js', '!<%= pkg.config.dev %>/js/lib/*.js']
             }
         },
         useminPrepare: {
             options: {
-                root: '<%= pkg.config.dev %>',
-                dest: '<%= pkg.config.dest %>'
+                root: '<%= pkg.config.tmp %>',
+                dest: '<%= pkg.config.dev %>',
+                flow: {
+                    html: {
+                        steps: {
+                            js: ['concat'],
+                            css: ['concat']
+                        },
+                        post: {}
+                    }
+                }
             },
-            html: ['<%= pkg.config.dest %>/**/*.html']
+            html: ['<%= pkg.config.dev %>/**/*.html']
         },
         usemin: {
             options: {
                 assetsDirs: [
-                    '<%= pkg.config.dest %>/',
-                    '<%= pkg.config.dest %>/css/',
-                    '<%= pkg.config.dest %>/js/'
+                    '<%= pkg.config.dev %>/',
+                    '<%= pkg.config.dev %>/css/',
+                    '<%= pkg.config.dev %>/js/'
                 ]
             },
-            css: ['<%= pkg.config.dest %>/css/**/*.css'],
-            html: ['<%= pkg.config.dest %>/**/*.html']
+            css: ['<%= pkg.config.dev %>/css/**/*.css'],
+            html: ['<%= pkg.config.dev %>/**/*.html']
         },
         htmlmin: {
-            dist: {
+            dest: {
                 options: {
                     minifyCSS: true,
                     minifyJS: true,
@@ -159,25 +248,31 @@ module.exports = function(grunt) {
                     archive: '<%= pkg.name%>-master.zip'
                 },
                 files: [
-                    { expand: true, cwd: '<%= pkg.config.dev %>', src: ['**'], dest: '<%= pkg.name%>/<%= pkg.config.dev %>/' },
-                    { src: ['build.json'], dest: '<%= pkg.name%>/' },
+                    { expand: true, cwd: '<%= pkg.config.src %>', src: ['**'], dest: '<%= pkg.name%>/<%= pkg.config.src %>/' },
                     { src: ['Gruntfile.js', 'package.json', 'README.md', 'LICENSE'], dest: '<%= pkg.name%>/' }
                 ]
             }
         }
     });
 
-    //modules load
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
     grunt.registerTask('default', 'server');
 
     return grunt.registerTask('server', function(target) {
-        if (target !== 'dist') {
+        if (target !== 'dest') {
             console.log('Development Server Mode...');
             return grunt.task.run([
                 'clean:dev',
                 'less',
+                'copy:lib',
+                'copy:tmp',
+                'copy:dev',
+                'useminPrepare',
+                'concat',
+                'filerev',
+                'usemin',
+                'clean:tmp',
                 'connect:dev',
                 'watch:dev'
             ]);
@@ -186,17 +281,21 @@ module.exports = function(grunt) {
             return grunt.task.run([
                 'clean:dest',
                 'less',
-                'copy',
-                'imagemin',
+                'copy:lib',
+                'uglify',
+                'copy:dev',
                 'useminPrepare',
                 'concat',
-                'uglify',
-                'cssmin',
                 'filerev',
                 'usemin',
+                'clean:tmp',
+                'copy:dest',
+                'cssmin',
+                'imagemin',
                 'htmlmin',
-                'connect:dist',
-                'watch:dist'
+                'clean:dev2',
+                'connect:dest',
+                'watch:dest'
             ]);
         }
     });

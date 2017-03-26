@@ -28,5 +28,5 @@ compare the two commands following
 or
 
 ```
-  grunt server:dist
+  grunt server:dest
 ```

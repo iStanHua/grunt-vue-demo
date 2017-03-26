@@ -1,7 +1,7 @@
 {
-    "name": "51donate",
+    "name": "grunt-vue-resource",
     "version": "1.0.0",
-    "description": "51donate",
+    "description": "grunt+vue+vue-resource",
     "dependencies": {},
     "devDependencies": {
         "connect-livereload": "~0.3.0",
@@ -25,7 +25,9 @@
     },
     "keywords": ["grunt"],
     "config": {
-        "dev": "src",
+        "src": "src",
+        "tmp": ".tmp",
+        "dev": "dev",
         "dest": "dist"
     },
     "license": "MIT",
