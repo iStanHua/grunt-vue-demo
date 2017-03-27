@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Chat</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable-style" content="blank" />
+    <meta name="apple-mobile-web-app-title" content="" />
+    <meta name="format-detection" content="telephone=no,email=no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="../favicon.ico" />
+    <!--build:css css/chat.css-->
+    <link rel="stylesheet" type="text/css" href="css/base.css" />
+    <link rel="stylesheet" type="text/css" href="css/chat.css" />
+    <!--endbuild-->
+    <!--[if lt IE 9]>
+    <script type="text/javscript" src="js/lib/html5shiv.js"></script>
+    <script type="text/javscript" src="js/lib/respond.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="page" id="app">
+        <div class="content">
+            <div class="wrapper">
+                <div v-if="!join" class="section">
+                    <form @submit.prevent="joinChat(name)">
+                        <div class="form-box">
+                            <div class="title">Chat</div>
+                            <div class="form-input">
+                                <div class="form-item">
+                                    <div class="input-box input-icon">
+                                        <input type="text" id="iName" class="input" v-model="name" placeholder="请输入用户名" autocomplete="off" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-btn">
+                                <button class="btn btn-primary" type="submit">加入</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div v-if="join" class="section chat-section">
+                    <div class="chat-box">
+                        <div class="chat-side">
+                            <div class="listview">
+                                <a v-for="user in users" :class="{item: true,current: (user.name === name)}" :data-id="user.id">
+                                    <img class="pic" :src="user.pic" alt="头像">
+                                    <div class="name" v-text="user.name"></div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="chat-header">
+                            <div class="title">Chat</div>
+                        </div>
+                        <div class="chat-content">
+                            <div class="listview">
+                                <div v-for="m in messages" :class="{item: true,mine: (m.name === name)}" :data-id="m.id">
+                                    <img class="pic" :src="m.pic" alt="头像">
+                                    <div class="name" v-text="m.name"></div>
+                                    <div class="message" v-text="m.message"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-footer">
+                            <form @submit.prevent="send(message)">
+                                <div class="chat-tool">
+                                    <a class="icon i-plus"></a>
+                                </div>
+                                <div class="chat-input">
+                                    <textarea class="input" v-model="message" placeholder="说什么?..."></textarea>
+                                </div>
+                                <div class="chat-btn"><button class="btn btn-default" type="submit">发送</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--build:js js/chat.js-->
+    <script type="text/javascript" src="js/lib/vue.js"></script>
+    <script type="text/javascript" src="js/lib/socket.io.js"></script>
+    <script type="text/javascript" src="js/lib/vue-socketio.js"></script>
+    <script type="text/javascript" src="js/chat.js"></script>
+    <!--endbuild-->
+</body>
+
+</html>

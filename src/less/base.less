@@ -267,19 +267,21 @@ iframe {
     }
     .icon{
         font-size: 25px;
-        b{
+        em{
             position: absolute;
-            top:-1px;
-            right:-10px;
+            top:-2px;
+            right:-13px;
             display: block;
-            width: 14px;
-            height: 14px;
-            line-height: 14px;
+            width: 18px;
+            height: 18px;
+            line-height: 20px;
             font-size: 12px;
             text-align:center;
             color: @whiteColor;
             background-color: @redColor;
             border-radius: @radius;
+            -webkit-transform: scale(.8);
+            transform: scale(.8);
         }
     }
     span{
@@ -615,7 +617,6 @@ iframe {
 
     .item {
         padding: 10px;
-        border-bottom: 1px solid @borderColor;
         &:hover{
             background-color:@borderColor;
         }

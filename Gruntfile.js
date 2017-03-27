@@ -89,7 +89,7 @@ module.exports = function(grunt) {
         },
         clean: {
             tmp: ['.tmp'],
-            dev: ['.tmp', '<%= pkg.config.dest %>', '<%= pkg.config.dev %>/'],
+            dev: ['.tmp', '<%= pkg.config.dest %>', '<%= pkg.config.dev %>'],
             dest: ['.tmp', '<%= pkg.config.dev %>', '<%= pkg.config.dest %>/'],
             dev2: ['<%= pkg.config.dev %>']
         },
