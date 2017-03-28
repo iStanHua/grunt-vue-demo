@@ -617,8 +617,10 @@ iframe {
 
     .item {
         padding: 10px;
-        &:hover{
+        &:hover,&.current{
             background-color:@borderColor;
+            -webkit-transition: background-color .25s linear,color .05s linear,opacity .25s linear,filter .25s linear,visibility .25s linear,transform .25s linear;
+            transition: background-color .25s linear,color .05s linear,opacity .25s linear,filter .25s linear,visibility .25s linear,transform .25s linear;
         }
     }
 }

@@ -26,15 +26,14 @@
 </head>
 
 <body>
-    <div class="page home-page" id="app">
+    <div class="page" id="app">
         <div class="header">
             <div class="title">首页</div>
         </div>
-        <div class="content home-content">
+        <div class="content">
             <div class="wrapper">
-                <div class="section">
-                    <p>首页页面</p>
-                </div>
+                <grid-table :data-list="gridData" :columns="gridColumns">
+                </grid-table>
             </div>
         </div>
         <div class="footer">
@@ -61,25 +60,24 @@
             </div>
         </div>
     </div>
-    <script id="J_mailTmpl" type="text/html">
-        <div class="content mail-content">
-            <div class="wrapper">
-                <div class="section">
-                    <p>消息页面</p>
-                </div>
-            </div>
-        </div>
-    </script>
-
-    <script id="J_findTmpl" type="text/html">
-        <div class="content find-content">
-            <div class="wrapper">
-                <div class="section">
-                    <p>发现页面</p>
-                </div>
-            </div>
-        </div>
-    </script>
+    <template id="grid-template">
+        <table>
+            <thead>
+                <tr>
+                    <th v-for="col in columns">
+                        {{ col | capitalize}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(index,entry) in dataList">
+                    <td v-for="col in columns">
+                        {{entry[col]}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+		</template>
 
     <script id="J_userTmpl" type="text/html">
         <div class="content user-content">

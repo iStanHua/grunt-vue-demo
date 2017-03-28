@@ -23,19 +23,18 @@ var vm = new Vue({
         ]
     },
     methods: {
-        joinChat: function (name) {
+        joinChat: function(name) {
             if (name) {
                 // this.$socket.emit('join', name);
                 var _len = this.users.length;
                 this.id = _len + 1;
                 this.name = name;
                 this.pic = 'images/logo.png';
-                if (this.users.indexOf(this.user) > -1) return;
                 this.users.push(this.user);
                 this.join = true;
             }
         },
-        send: function (message) {
+        send: function(message) {
             if (message) {
                 this.messages.push({ id: this.pic, name: this.name, pic: this.pic, message: message });
                 this.message = null;
@@ -45,7 +44,7 @@ var vm = new Vue({
         }
     },
     computed: {
-        user: function () {
+        user: function() {
             var _user = {};
             _user.id = this.id;
             _user.name = this.name;
@@ -54,26 +53,26 @@ var vm = new Vue({
         }
     },
     watch: {
-        messages: function () {
-            // setTimeout(function () {
-            //     $('.messages ul').scrollTop(999999999);
-            // }, 100)
+        check: function(name) {
+            this.users.forEach(function(user) {
+                console.log(user);
+            })
         }
     },
     sockets: {
-        users: function (users) {
+        users: function(users) {
             this.$set('users', users);
         },
-        joined: function () {
+        joined: function() {
             this.$set('join', true)
         },
-        messages: function (data) {
+        messages: function(data) {
             this.$set('messages', data);
         },
-        onmessage: function (data) {
+        onmessage: function(data) {
             this.messages.push(data);
         },
-        adduser: function (user) {
+        adduser: function(user) {
             this.users.push(user);
         }
     }
