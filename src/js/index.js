@@ -1,27 +1,46 @@
 Vue.component('grid-table', {
     template: '#grid-template',
-    props: ['dataList', 'columns']
+    props: ['dataList', 'columns'],
+    data: function() {
+        return {
+            showLayer: false
+        }
+    },
+    components: {
+        'layer': {
+            template: '#edit-template',
+            props: ['showLayer']
+        }
+    },
+    methods: {
+        editLayer: function() {
+            this.showLayer = true;
+        }
+    }
 })
-Vue, use();
 var vm = new Vue({
     el: '#app',
     data: {
-        gridColumns: ['customerId', 'companyName', 'contactName', 'phone'],
-        gridData: [],
-        apiUrl: 'http://211.149.193.19:8080/api/customers'
+        gridColumns: ['customerId', 'companyName', 'contactName', 'address', 'phone'],
+        gridData: null,
+        apiUrl: 'http://211.149.193.19:8080/api/customers',
     },
-    ready: function() {
+    created: function() {
         this.getCustomers()
     },
     methods: {
         getCustomers: function() {
+            var self = this;
             this.$http.get(this.apiUrl)
                 .then(function(response) {
-                    this.$set('gridData', response.data)
+                    self.gridData = response.data;
                 })
                 .catch(function(response) {
                     console.log(response)
                 })
+        },
+        editLayer: function() {
+            this.showLayer = true;
         }
     }
 })
