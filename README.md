@@ -1,7 +1,7 @@
-grunt-vue-resource-demo
+grunt-vue-demo
 ========================
 
-grunt + vue + vue-resource
+grunt + vue
 
 安装 CLI 
 
