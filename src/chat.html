@@ -29,13 +29,13 @@
         <div class="content">
             <div class="wrapper">
                 <div v-if="!join" class="section">
-                    <form @submit.prevent="joinChat(name)">
+                    <form @submit.prevent="joinChat()">
                         <div class="form-box">
                             <div class="title">Chat</div>
                             <div class="form-input">
                                 <div class="form-item">
                                     <div class="input-box input-icon">
-                                        <input type="text" id="iName" class="input" v-model="name" placeholder="请输入用户名" autocomplete="off" />
+                                        <input type="text" id="iName" class="input" v-model="user.name" placeholder="请输入用户名" autocomplete="off" />
                                     </div>
                                 </div>
                             </div>

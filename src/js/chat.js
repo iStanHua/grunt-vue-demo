@@ -4,9 +4,7 @@ var vm = new Vue({
     el: '#app',
     data: {
         join: false,
-        id: 0,
-        name: '',
-        pic: '',
+        user: { id: 0, name: '', pic: 'images/logo.png' },
         users: [
             { id: 1, name: '寻百度', pic: 'images/logo.png' },
             { id: 2, name: '斯坦华', pic: 'images/logo.png' },
@@ -19,18 +17,26 @@ var vm = new Vue({
             { id: 3, name: '大中华', pic: 'images/logo.png', message: '呵呵' },
             { id: 2, name: '斯坦华', pic: 'images/logo.png', message: '哈哈哈哈哈哈哈' },
             { id: 1, name: '寻百度', pic: 'images/logo.png', message: '...' },
-            { id: 2, name: '斯坦华', pic: 'images/logo.png', message: '......' }
+            { id: 2, name: '斯坦华', pic: 'images/logo.png', message: '@寻百度 您好!' }
         ]
     },
     methods: {
-        joinChat: function(name) {
-            if (name) {
+        joinChat: function() {
+            var _name = this.user.name;
+            if (_name) {
                 // this.$socket.emit('join', name);
-                var _len = this.users.length;
-                this.id = _len + 1;
-                this.name = name;
-                this.pic = 'images/logo.png';
-                this.users.push(this.user);
+                this.users.forEach(function(u) {
+                    if (u.name == _name) {
+                        console.log(u);
+                        this.user.id = u.id;
+                        return false;
+                    }
+                });
+                if (this.user.id == 0) {
+                    var _len = this.users.length;
+                    this.user.id = _len + 1;
+                    this.users.push(this.user);
+                }
                 this.join = true;
             }
         },
@@ -44,21 +50,9 @@ var vm = new Vue({
         }
     },
     computed: {
-        user: function() {
-            var _user = {};
-            _user.id = this.id;
-            _user.name = this.name;
-            _user.pic = this.pic;
-            return _user;
-        }
+
     },
-    watch: {
-        check: function(name) {
-            this.users.forEach(function(user) {
-                console.log(user);
-            })
-        }
-    },
+    watch: {},
     sockets: {
         users: function(users) {
             this.$set('users', users);

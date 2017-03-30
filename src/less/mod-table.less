@@ -1,25 +1,31 @@
 @import "global.less";
 
 .grid-table{
-  display: table;
-  .grid-tr{    
-      display: table-row;
-      padding: 8px 0;
-  }
-  .grid-td{
-      display: table-cell;
-      vertical-align: middle;
-      padding: 8px;
-  }
-  .grid-header{    
-      display: table-header-group;
-      vertical-align: middle;
-  }
-  .grid-body{    
-      display: table-header-group;
-      vertical-align: middle;
-      .even{
-          background-color: @evenColor;
-      }
-  }
+    position: relative;
+    display: table;
+    .grid-tr{    
+        display: table-row;
+        line-height: 18px;
+    }
+    .grid-td{
+        position: relative;
+        display: table-cell;
+        vertical-align: middle;
+        padding: 8px;
+    }
+    .grid-header{    
+        position: relative;
+        display: table-header-group;
+        vertical-align: middle;
+    }
+    .grid-body{    
+        display: table-header-group;
+        vertical-align: middle;
+        .even{
+            background-color: @evenColor;
+        }
+    }
+    .grid-footer {
+        display: table-header-group;
+    }
 }
