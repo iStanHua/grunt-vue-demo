@@ -1,0 +1,70 @@
+@import "global.less";
+
+.form-box {
+    margin: 10px auto;
+
+    .form-input {
+        position: relative;
+        background-color: @whiteColor;
+        border-radius: 8px;
+    }
+
+    .form-item {
+        position: relative;    
+        padding: 0 10px;
+        margin-bottom: 10px;
+        background-color: @whiteColor;
+    }
+    .pos-left{
+        top: 15px;
+        left: 11px;
+        .transition(top .5s);
+    }
+    .pos-right{
+        top: 16px;
+        right: 10px;
+    }
+    .input {
+        width: 100%;
+        padding-top: 15px;
+        padding-bottom: 14px;
+        line-height: 16px;
+        font-size: 14px;
+    }
+    input[type=text]{
+        height: 16px;
+    }
+    .input-focused{
+        .pos-left{
+            top: 0;
+            font-size: 10px;
+            color: @grayColor;
+        }
+    }
+    .form-btn {
+        padding-top: 20px;
+        .btn{
+            display: block;
+        }
+    }
+    .form-other{
+        margin-top: 5px;
+        height: 20px;
+        .pwd{
+            float: left;
+            color: @baseColor;
+        }
+        .sign{
+            float: right;
+            color: @baseColor;
+        }
+    }
+    .input-code{
+        padding-right: 120px;
+        .btn{
+            padding-left:20px;
+            padding-right:20px; 
+            border-radius: 0;
+        }
+    }
+}

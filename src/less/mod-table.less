@@ -7,6 +7,12 @@
         display: table-row;
         line-height: 18px;
     }
+    .grid-tr:hover{    
+        background-color: @bgColor;
+    }
+    .even{
+        background-color: @evenColor;
+    }
     .grid-td{
         position: relative;
         display: table-cell;
@@ -16,16 +22,12 @@
     .grid-header{    
         position: relative;
         display: table-header-group;
+        color: @whiteColor;
         vertical-align: middle;
+        background-color: @baseColor;
     }
     .grid-body{    
         display: table-header-group;
         vertical-align: middle;
-        .even{
-            background-color: @evenColor;
-        }
-    }
-    .grid-footer {
-        display: table-header-group;
     }
 }

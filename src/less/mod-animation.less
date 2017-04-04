@@ -8,6 +8,14 @@
     from {background-position: 40px 0;}
     to {background-position: 0 0;}
 }
+@-webkit-keyframes rotation {
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(359deg);}
+}
+@keyframes rotation {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(359deg);}
+}
 .in{.animation(.5s ease-out backwards);}
 .out{.animation(.6s ease-in forwards);}
 .fadeTin{.animation-name(fadeTin);}
