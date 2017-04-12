@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>clock</title>
+    <title>省市选择</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,7 +14,7 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <link rel="shortcut icon" href="../favicon.ico" />
-    <!--build:css css/clock.css-->
+    <!--build:css css/cityselect.css-->
     <link rel="stylesheet" type="text/css" href="css/base.css" />
     <!--endbuild-->
     <!--[if lt IE 9]>
@@ -27,13 +27,23 @@
     <div class="page" id="app">
         <div class="content">
             <div class="wrapper">
-                <canvas id="clock" width="300" height="300"></canvas>
+                <city-select></city-select>
             </div>
         </div>
+
+        <template id="select-tpl">
+            <select class="select" name="province" v-model="province">
+                <option value="-1">省/直辖市</option>
+                <option :value="province.name" v-for="province of provinces">{{province.name}}</option>
+            </select>
+            <select class="select" name="city" v-model="city">
+                <option :value="city" v-for="city of cities">{{city}}</option>
+            </select>
+        </template>
     </div>
-    <!--build:js js/clock.js-->
+    <!--build:js js/cityselect.js-->
     <script type="text/javascript" src="js/lib/vue.js"></script>
-    <script type="text/javascript" src="js/clock.js"></script>
+    <script type="text/javascript" src="js/cityselect.js"></script>
     <!--endbuild-->
 </body>
 

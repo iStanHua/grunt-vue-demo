@@ -1,21 +1,12 @@
 Vue.component('grid-table', {
     template: '#grid-template',
-    props: ['dataList', 'columns'],
+    props: ['data', 'columns'],
     methods: {
         loadEntry: function(key) {
             this.$emit('load-entry', key)
         },
         deleteEntry: function(entry) {
             this.$emit('delete-entry', entry)
-        }
-    }
-});
-Vue.component('layer', {
-    template: '#layer-template',
-    props: ['show', 'item'],
-    methods: {
-        close: function() {
-            this.show = false;
         }
     }
 });
@@ -56,7 +47,6 @@ Vue.component('countdown', {
             this.date = Math.trunc(Date.parse(this.deadline) / 1000)
             setInterval(function() {
                 this.now = Math.trunc((new Date()).getTime() / 1000)
-                console.log(this.now);
             }, 1000);
         }
     }
@@ -69,7 +59,7 @@ var vm = new Vue({
         gridData: null,
         apiUrl: 'http://211.149.193.19:8080/api/customers',
         item: {},
-        show: false,
+        show: true,
         focused: false,
         loading: true
     },
@@ -98,10 +88,12 @@ var vm = new Vue({
             this.show = false
         },
         loadCustomer: function(customerId) {
-            var self = this
+            var self = this;
+            self.show = true;
+            console.log(customerId);
             self.gridData.forEach(function(item) {
                 if (item.customerId === customerId) {
-                    self.$set('item', item)
+                    // self.$set('item', item)
                     self.show = true;
                     return
                 }
@@ -133,6 +125,17 @@ var vm = new Vue({
                 .then((response) => {
                     self.getCustomers()
                 })
+        }
+    },
+    components: {
+        'layer': {
+            template: '#layer-template',
+            props: ['showLayer', 'currentItem'],
+            methods: {
+                close: function() {
+                    this.showLayer = false;
+                }
+            }
         }
     }
 });
