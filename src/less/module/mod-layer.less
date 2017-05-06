@@ -1,0 +1,90 @@
+.layer-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    display: table; 
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    .transition(opacity .3s);
+}
+.layer {
+    display: table-cell;
+    vertical-align: middle; 
+    outline: 0;  
+    .layer-box{
+        width: 600px;
+        margin: 0 auto;
+        background-color: @whiteColor;
+    }
+    .layer-header{
+        height: 45px;
+        padding: 0 50px;
+        line-height: 45px;
+        font-size: 18px;
+        text-align: center;    
+        color: @whiteColor;
+        background-color: @baseColor;
+        a{
+            position: absolute;
+            top: 0;
+            z-index: 1;
+            padding: 13px 10px;
+            line-height: 20px;
+            font-size: 16px;
+            color: @whiteColor;
+            &.back{    
+                left: 0;
+            }
+            &.ok{    
+                right: 0;
+            }
+        }
+    }
+    .layer-body{
+        outline: 0;
+        line-height: 18px;
+    }
+    .layer-footer{
+        position: relative;
+        height: 40px;
+        border-top: 1px solid @borderColor;
+        a{
+            display: block;
+            float: left;
+            width: 50%;
+            padding: 10px 0;
+            line-height: 20px;
+            text-align: center;
+            &:hover{
+                background-color: @bgColor;
+            }
+            &.full{    
+                width: 100%;    
+            }
+            &.cancel:before{ 
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 1px;
+                height: 100%;
+                background-color: @borderColor;
+            }
+            &.ok{    
+                color: @baseColor;    
+            }
+        }
+    }
+}
+.layer-tips {
+    .layer-box {
+        max-width: 80%;
+        background-color: @whiteColor;
+        .box-shadow(0 0 12px,rgba(0,0,0,.3));
+    }
+    .layer-body {
+        padding: 10px 20px;
+    }
+}

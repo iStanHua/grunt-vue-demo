@@ -3,14 +3,25 @@ Vue.component('grid-table', {
     props: ['data', 'columns'],
     methods: {
         loadEntry: function(key) {
-            this.$emit('load-entry', key)
+            this.$emit('update', key)
         },
         deleteEntry: function(entry) {
-            this.$emit('delete-entry', entry)
+            this.$emit('delete', entry)
         }
     }
 });
-
+Vue.component('layer', {
+    template: '#layer-template',
+    props: ['data', 'show'],
+    methods: {
+        close: function() {
+            this.$emit('close')
+        },
+        save: function() {
+            this.$emit('save')
+        }
+    }
+});
 Vue.component('countdown', {
     template: '#countdown-template',
     props: ['deadline'],
@@ -58,8 +69,8 @@ var vm = new Vue({
         gridColumns: ['customerId', 'companyName', 'address', 'phone'],
         gridData: null,
         apiUrl: 'http://211.149.193.19:8080/api/customers',
-        item: {},
-        show: true,
+        item: Object,
+        show: false,
         focused: false,
         loading: true
     },
@@ -73,6 +84,9 @@ var vm = new Vue({
         inputblur: function() {
             this.focused = false;
         },
+        close: function() {
+            this.show = false
+        },
         getCustomers: function() {
             var self = this;
             this.$http.get(this.apiUrl)
@@ -84,58 +98,58 @@ var vm = new Vue({
                     console.log(response)
                 })
         },
-        close: function() {
-            this.show = false
-        },
         loadCustomer: function(customerId) {
             var self = this;
-            self.show = true;
-            console.log(customerId);
-            self.gridData.forEach(function(item) {
-                if (item.customerId === customerId) {
-                    // self.$set('item', item)
+            if (customerId == undefined) {
+                self.item = {};
+                self.show = true;
+                return;
+            }
+            self.gridData.forEach(function(data) {
+                if (data.customerId === customerId) {
+                    self.item = data;
                     self.show = true;
-                    return
+                    return false;
                 }
-            })
+            });
         },
         saveCustomer: function() {
-            this.item.customerId ? this.updateCustomer() : this.createCustomer()
+            if (this.item.customerId == undefined) {
+                this.createCustomer()
+            } else {
+                this.updateCustomer()
+            }
             this.show = false
         },
         createCustomer: function() {
             var self = this
             self.$http.post(self.apiUrl, self.item)
                 .then((response) => {
-                    self.$set('item', {})
                     self.getCustomers()
                 })
-            this.show = false
+                .catch(function(response) {
+                    console.log(response)
+                })
         },
         updateCustomer: function() {
             var self = this
             self.$http.put(self.apiUrl + '/' + self.item.customerId, self.item)
                 .then((response) => {
-                    self.getCustomers()
+                    // self.getCustomers()
+                })
+                .catch(function(response) {
+                    console.log(response)
                 })
         },
-        deleteCustomer: function(customer) {
+        deleteCustomer: function(customerId) {
             var self = this
-            self.$http.delete(self.apiUrl + '/' + customer.customerId)
+            self.$http.delete(self.apiUrl + '/' + customerId)
                 .then((response) => {
                     self.getCustomers()
                 })
-        }
-    },
-    components: {
-        'layer': {
-            template: '#layer-template',
-            props: ['showLayer', 'currentItem'],
-            methods: {
-                close: function() {
-                    this.showLayer = false;
-                }
-            }
+                .catch(function(response) {
+                    console.log(response)
+                })
         }
     }
 });

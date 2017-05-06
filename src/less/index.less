@@ -1,8 +1,34 @@
 @import "global.less";
+
 .wrapper{
     width: 800px;
 }
 .grid-table{
    width: 800px;
    background-color:@whiteColor;
+}
+.grid-footer{
+    padding: 10px;
+    text-align: center;
+    .btn{
+        width: 100px;
+    }
+}
+.layer-body{
+    padding-top: 15px;
+    padding-bottom: 5px;
+    .form-item{
+        padding-left: 135px;
+    }
+    .input{
+        text-indent: 15px;
+        border: 1px solid @borderColor;
+    }
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+  -webkit-transition: opacity .5s;
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0;
 }

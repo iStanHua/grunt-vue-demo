@@ -29,9 +29,12 @@
     <div class="page" id="app">
         <div class="content">
             <div class="wrapper">
-                <grid-table :data="gridData" :columns="gridColumns" @:load-entry="loadCustomer" @:delete-entry="deleteCustomer">
+                <grid-table :data="gridData" :columns="gridColumns" @update="loadCustomer" @delete="deleteCustomer">
                 </grid-table>
-                <div class="loading ease" v-show="">
+                <div class="grid-footer">
+                    <a class="btn" @click="loadCustomer()">新增</a>
+                </div>
+                <div class="loading" v-show="loading">
                     <div class="loading-spinner"></div>
                 </div>
                 <div class="form-box">
@@ -53,67 +56,68 @@
                         <input type="text" class="input" v-model="item.phone" @focus="inputfocus" @blur="inputblur" />
                     </div>
                 </div>
-                <countdown deadline="2017-04-14"></countdown>
-                <!--<layer :show-layer="show" :current-item="item"></layer>-->
+                <countdown deadline="2117-03-14"></countdown>
+                <layer :show="show" :data="item" @close="close" @save="saveCustomer"></layer>
             </div>
         </div>
     </div>
     <template id="grid-template">
         <div class="grid-table">
             <div class="grid-header">
-                <div v-for="(col,index) in columns" :class="['grid-td','grid-td-'+index]"><span v-text="col"></span></div>
-                <div :class="['grid-td','grid-td-'+columns.length]">操作</div>
+                <div v-for="(col,index) in columns" :class="['grid-td','grid-td-'+(index+1)]"><span v-text="col"></span></div>
+                <div :class="['grid-td','grid-td-'+(columns.length+1)]">操作</div>
             </div>
             <div class="grid-body">
                 <div v-for="(entry,i) in data" :class="(i%2)==0?'grid-tr even':'grid-tr'">
                     <div v-for="(col,index) in columns" :class="['grid-td','grid-td-'+(index+1)]">
                         <p v-text="entry[col]==null?'- -':entry[col]"></p>
-
                     </div>
                     <div :class="['grid-td','grid-td-'+columns.length]">
-                        <i class="icon i-edit" @click="loadEntry(entry[0])"></i>
-                        <i class="icon i-close" @click="deleteEntry(entry)"></i>
+                        <i class="icon i-edit" @click="loadEntry(entry['customerId'])"></i>
+                        <i class="icon i-close" @click="deleteEntry(entry['customerId'])"></i>
                     </div>
                 </div>
-            </div>
-            <div class="grid-footer">
             </div>
         </div>
     </template>
     <template id="layer-template">
-        <div class="layer-mask">
-            <div class="layer layer-tips">
-                <div class="layer-box">
-                    <div class="layer-header">
-                        <p>编辑</p>
-                    </div>
-                    <div class="layer-body">
-                        <div class="form-box">
-                            <div class="form-item">
-                                <span class="pos-left">Customer Id</span>
-                                <input type="text" class="input" v-model="item.customerId" />
-                            </div>
-                            <div class="form-item">
-                                <span class="pos-left">Customer Name</span>
-                                <input type="text" class="input" v-model="item.customeName" />
-                            </div>
-                            <div class="form-item">
-                                <span class="pos-left">Address</span>
-                                <input type="text" class="input" v-model="item.address" />
-                            </div>
-                            <div class="form-item">
-                                <span class="pos-left">Phone</span>
-                                <input type="text" class="input" v-model="item.phone" />
+        <transition name="fade">
+            <div class="layer-mask" v-if="show">
+                <div class="layer">
+                    <div class="layer-box">
+                        <div class="layer-header">  
+                            <p v-if="data.customerId==undefined">新增</p>
+                            <p v-else>编辑</p>
+                        </div>
+                        <div class="layer-body">
+                            <div class="form-box">
+                                <div class="form-item">
+                                    <span class="pos-left">Customer Id</span>
+                                    <div v-if="data.customerId==undefined" class="input disabled" v-text=""></div>
+                                    <input v-else type="text" class="input" disabled v-model="data.customerId" />
+                                </div>
+                                <div class="form-item">
+                                    <span class="pos-left">Company Name</span>
+                                    <input type="text" class="input" v-model="data.companyName" />
+                                </div>
+                                <div class="form-item">
+                                    <span class="pos-left">Address</span>
+                                    <input type="text" class="input" v-model="data.address" />
+                                </div>
+                                <div class="form-item">
+                                    <span class="pos-left">Phone</span>
+                                    <input type="text" class="input" v-model="data.phone" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="layer-footer">
-                        <a class="cancel" @click="close">取消</a>
-                        <a class="ok" @click="close">确定</a>
+                        <div class="layer-footer">
+                            <a class="cancel" @click="close" >取消</a>
+                            <a class="ok" @click="save">确定</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </transition>
     </template>
     <script type="text/x-template" id="countdown-template">
         <div class="countdown">{{countdown}}</div>

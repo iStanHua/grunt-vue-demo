@@ -24,7 +24,7 @@ module.exports = function(grunt) {
             },
             dev: {
                 options: {
-                    port: 9000,
+                    port: 1688,
                     middleware: function(connect, options) {
                         return [lrSnippet, folderMount(connect, 'dev')];
                     }
