@@ -50,14 +50,23 @@ Vue.component('countdown', {
     computed: {
         countdown: function() {
             var _t = this.date - this.now;
-            return Math.trunc(_t / 60 / 60 / 24) + '天' + Math.trunc(_t / 60 / 60 % 24) + ':' + Math.trunc(_t / 60 % 60) + ':' + Math.trunc(_t % 60)
+            var _day = Math.trunc(_t / 60 / 60 / 24);
+            var _hour = Math.trunc(_t / 60 / 60 % 24);
+            var _minute = Math.trunc(_t / 60 % 60);
+            var _second = Math.trunc(_t % 60);
+            _day = _day < 10 ? '0' + _day : _day;
+            _hour = _hour < 10 ? '0' + _hour : _hour;
+            _minute = _minute < 10 ? '0' + _minute : _minute;
+            _second = _second < 10 ? '0' + _second : _second;
+            return _day + '天' + _hour + ':' + _minute + ':' + _second
         }
     },
     methods: {
         setnow: function() {
-            this.date = Math.trunc(Date.parse(this.deadline) / 1000)
+            var self = this;
+            self.date = Math.trunc(Date.parse(self.deadline) / 1000)
             setInterval(function() {
-                this.now = Math.trunc((new Date()).getTime() / 1000)
+                self.now = Math.trunc((new Date()).getTime() / 1000)
             }, 1000);
         }
     }
@@ -71,6 +80,7 @@ var vm = new Vue({
         apiUrl: 'http://211.149.193.19:8080/api/customers',
         item: Object,
         show: false,
+        now: new Date(),
         focused: false,
         loading: true
     },
