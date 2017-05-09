@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>timer</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable-style" content="blank" />
+    <meta name="apple-mobile-web-app-title" content="" />
+    <meta name="format-detection" content="telephone=no,email=no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="../favicon.ico" />
+    <!--build:css css/timer.css-->
+    <link rel="stylesheet" type="text/css" href="css/base.css" />
+    <link rel="stylesheet" type="text/css" href="css/timer.css" />
+    <!--endbuild-->
+    <!--[if lt IE 9]>
+    <script type="text/javscript" src="js/lib/html5shiv.js"></script>
+    <script type="text/javscript" src="js/lib/respond.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="page" id="app">
+        <div class="content">
+            <div class="wrapper">
+                <div class="timer-group">
+                    <div class="timer hour">
+                        <div class="hand"><span></span></div>
+                        <div class="hand"><span></span></div>
+                    </div>
+                    <div class="timer minute">
+                        <div class="hand"><span></span></div>
+                        <div class="hand"><span></span></div>
+                    </div>
+                    <div class="timer second">
+                        <div class="hand"><span></span></div>
+                        <div class="hand"><span></span></div>
+                    </div>
+                    <div class="face">
+                        <h2>A CSS Chronograph</h2>
+                        <p id="lazy">00:00:00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--build:js js/clock.js-->
+    <script type="text/javascript" src="js/lib/vue.js"></script>
+    <script type="text/javascript" src="js/timer.js"></script>
+    <!--endbuild-->
+</body>
+
+</html>
