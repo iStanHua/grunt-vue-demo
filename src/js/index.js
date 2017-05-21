@@ -2,10 +2,10 @@ Vue.component('grid-table', {
     template: '#grid-template',
     props: ['data', 'columns'],
     methods: {
-        loadEntry: function(key) {
+        loadEntry: function (key) {
             this.$emit('update', key)
         },
-        deleteEntry: function(entry) {
+        deleteEntry: function (entry) {
             this.$emit('delete', entry)
         }
     }
@@ -14,10 +14,10 @@ Vue.component('layer', {
     template: '#layer-template',
     props: ['data', 'show'],
     methods: {
-        close: function() {
+        close: function () {
             this.$emit('close')
         },
-        save: function() {
+        save: function () {
             this.$emit('save')
         }
     }
@@ -25,17 +25,17 @@ Vue.component('layer', {
 Vue.component('countdown', {
     template: '#countdown-template',
     props: ['deadline'],
-    data: function() {
+    data: function () {
         return {
             now: Math.trunc((new Date()).getTime() / 1000),
             date: null
         }
     },
-    mounted: function() {
+    mounted: function () {
         this.setnow();
     },
     filters: {
-        digits: function(v) {
+        digits: function (v) {
             var _val = v.toString();
             if (_val.length <= 1) {
                 return '0' + _val
@@ -48,7 +48,7 @@ Vue.component('countdown', {
         // date: 'setnow'
     },
     computed: {
-        countdown: function() {
+        countdown: function () {
             var _t = this.date - this.now;
             var _day = Math.trunc(_t / 60 / 60 / 24);
             var _hour = Math.trunc(_t / 60 / 60 % 24);
@@ -62,10 +62,10 @@ Vue.component('countdown', {
         }
     },
     methods: {
-        setnow: function() {
+        setnow: function () {
             var self = this;
             self.date = Math.trunc(Date.parse(self.deadline) / 1000)
-            setInterval(function() {
+            setInterval(function () {
                 self.now = Math.trunc((new Date()).getTime() / 1000)
             }, 1000);
         }
@@ -84,38 +84,38 @@ var vm = new Vue({
         focused: false,
         loading: true
     },
-    created: function() {
+    created: function () {
         this.getCustomers()
     },
     methods: {
-        inputfocus: function() {
+        inputfocus: function () {
             this.focused = true;
         },
-        inputblur: function() {
+        inputblur: function () {
             this.focused = false;
         },
-        close: function() {
+        close: function () {
             this.show = false
         },
-        getCustomers: function() {
+        getCustomers: function () {
             var self = this;
             this.$http.get(this.apiUrl)
-                .then(function(response) {
+                .then(function (response) {
                     self.gridData = response.data;
                     this.loading = false;
                 })
-                .catch(function(response) {
+                .catch(function (response) {
                     console.log(response)
                 })
         },
-        loadCustomer: function(customerId) {
+        loadCustomer: function (customerId) {
             var self = this;
             if (customerId == undefined) {
                 self.item = {};
                 self.show = true;
                 return;
             }
-            self.gridData.forEach(function(data) {
+            self.gridData.forEach(function (data) {
                 if (data.customerId === customerId) {
                     self.item = data;
                     self.show = true;
@@ -123,7 +123,7 @@ var vm = new Vue({
                 }
             });
         },
-        saveCustomer: function() {
+        saveCustomer: function () {
             if (this.item.customerId == undefined) {
                 this.createCustomer()
             } else {
@@ -131,39 +131,39 @@ var vm = new Vue({
             }
             this.show = false
         },
-        createCustomer: function() {
+        createCustomer: function () {
             var self = this
             self.$http.post(self.apiUrl, self.item)
                 .then((response) => {
                     self.getCustomers()
                 })
-                .catch(function(response) {
+                .catch(function (response) {
                     console.log(response)
                 })
         },
-        updateCustomer: function() {
+        updateCustomer: function () {
             var self = this
             self.$http.put(self.apiUrl + '/' + self.item.customerId, self.item)
                 .then((response) => {
                     // self.getCustomers()
                 })
-                .catch(function(response) {
+                .catch(function (response) {
                     console.log(response)
                 })
         },
-        deleteCustomer: function(customerId) {
+        deleteCustomer: function (customerId) {
             var self = this
             self.$http.delete(self.apiUrl + '/' + customerId)
                 .then((response) => {
                     self.getCustomers()
                 })
-                .catch(function(response) {
+                .catch(function (response) {
                     console.log(response)
                 })
         }
     }
 });
-vm.$watch('show', function(newVal, oldVal) {
+vm.$watch('show', function (newVal, oldVal) {
     if (!newVal) {
         this.item = {}
     }
