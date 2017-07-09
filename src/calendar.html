@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>calendar</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable-style" content="blank" />
+    <meta name="apple-mobile-web-app-title" content="" />
+    <meta name="format-detection" content="telephone=no,email=no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="../favicon.ico" />
+    <!--build:css css/calendar.css-->
+    <link rel="stylesheet" type="text/css" href="css/base.css" />
+    <link rel="stylesheet" type="text/css" href="css/calendar.css" />
+    <!--endbuild-->
+    <!--[if lt IE 9]>
+    <script type="text/javscript" src="js/lib/html5shiv.js"></script>
+    <script type="text/javscript" src="js/lib/respond.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="page" id="app">
+        <div class="header">
+            <span class="pre-btn" @click="preMonth">上一月</span>
+            <span class="now-y-m">{{ nowYear}}/{{ formatNowMonth }}</span>
+            <span class="next-btn" @click="nextMonth">下一月</span>
+        </div>
+        <div class="content">
+            <div class="wrapper">
+                <ul>
+                    <li v-for="(day,index) in days" @click="showDate(day)" :class="{'today' : index === today}" :key="index">{{ day }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--build:js js/calendar.js-->
+    <script type="text/javascript" src="js/lib/vue.js"></script>
+    <script type="text/javascript" src="js/calendar.js"></script>
+    <!--endbuild-->
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>简易留言板</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable-style" content="blank" />
+    <meta name="apple-mobile-web-app-title" content="" />
+    <meta name="format-detection" content="telephone=no,email=no" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="../favicon.ico" />
+    <!--build:css css/board.css-->
+    <link rel="stylesheet" type="text/css" href="css/base.css" />
+    <link rel="stylesheet" type="text/css" href="css/board.css" />
+    <!--endbuild-->
+    <!--[if lt IE 9]>
+    <script type="text/javscript" src="js/lib/html5shiv.js"></script>
+    <script type="text/javscript" src="js/lib/respond.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="page" id="app">
+        <div class="header">
+            <div class="title">简易留言板</div>
+        </div>
+        <div class="content">
+            <div class="wrapper">
+                <div class="form-box">
+                    <input type="text" class="input" placeholder="请输入" autofocus v-model="newMsg" placeholder="请输入留言" @keyup.enter="addMsg"/>
+                </div>
+                <div class="title">留言列表</div>
+                <div class="listview">
+                    <div class="item"  v-for="msg in msgs" v-text="msg.title"></div>
+                </div>
+                <p><a class="btn" v-if="msgs.length" @click="removeMsgs">清空留言</a></p>
+            </div>
+        </div>
+    </div>
+    <!--build:js js/board.js-->
+    <script type="text/javascript" src="js/lib/vue.js"></script>
+    <script type="text/javascript" src="js/board.js"></script>
+    <!--endbuild-->
+</body>
+
+</html>

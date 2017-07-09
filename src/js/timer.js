@@ -6,15 +6,15 @@ var defaults = {}
   , startDate = new Date()
   , face = document.getElementById('lazy');
 
-var requestAnimationFrame = (function() {
-  return window.requestAnimationFrame       || 
-         window.webkitRequestAnimationFrame || 
-         window.mozRequestAnimationFrame    || 
-         window.oRequestAnimationFrame      || 
-         window.msRequestAnimationFrame     || 
-         function( callback ){
-           window.setTimeout(callback, 1000 / 60);
-         };
+var requestAnimationFrame = (function () {
+  return window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function (callback) {
+      window.setTimeout(callback, 1000 / 60);
+    };
 }());
 
 tick();
@@ -25,16 +25,16 @@ function tick() {
     , elapsed = now - startDate
     , parts = [];
 
-  parts[0] = '' + Math.floor( elapsed / one_hour );
-  parts[1] = '' + Math.floor( (elapsed % one_hour) / one_minute );
-  parts[2] = '' + Math.floor( ( (elapsed % one_hour) % one_minute ) / one_second );
+  parts[0] = '' + Math.floor(elapsed / one_hour);
+  parts[1] = '' + Math.floor((elapsed % one_hour) / one_minute);
+  parts[2] = '' + Math.floor(((elapsed % one_hour) % one_minute) / one_second);
 
   parts[0] = (parts[0].length == 1) ? '0' + parts[0] : parts[0];
   parts[1] = (parts[1].length == 1) ? '0' + parts[1] : parts[1];
   parts[2] = (parts[2].length == 1) ? '0' + parts[2] : parts[2];
 
   face.innerText = parts.join(':');
-  
+
   requestAnimationFrame(tick);
-  
+
 }
