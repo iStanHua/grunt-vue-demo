@@ -1,5 +1,5 @@
 if (!String.prototype.trim) {
-    String.prototype.trim = function() {
+    String.prototype.trim = function () {
         return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
     };
 }
@@ -9,7 +9,7 @@ if (!String.prototype.trim) {
  * @param exp 被替换部分的正则
  * @param newStr 替换成的字符串
  */
-String.prototype.replaceAll = function(exp, newStr) {
+String.prototype.replaceAll = function (exp, newStr) {
     return this.replace(new RegExp(exp, "gm"), newStr);
 };
 
@@ -17,14 +17,14 @@ String.prototype.replaceAll = function(exp, newStr) {
  * 原型：字符串格式化
  * @param args 格式化参数值
  */
-String.prototype.format = function(args) {
+String.prototype.format = function (args) {
     var result = this;
     if (arguments.length < 1) {
         return result;
     }
 
     var data = arguments; // 如果模板参数是数组
-    if (arguments.length == 1 && typeof(args) == "object") {
+    if (arguments.length == 1 && typeof (args) == "object") {
         // 如果模板参数是对象
         data = args;
     }
@@ -40,7 +40,7 @@ String.prototype.format = function(args) {
 /*
     格式化日期
 */
-Date.prototype.Format = function(fmt) {
+Date.prototype.Format = function (fmt) {
     var o = {
         "M+": this.getMonth() + 1, //月份
         "d+": this.getDate(), //日
@@ -58,12 +58,12 @@ Date.prototype.Format = function(fmt) {
 
 //判断变量是否为数组
 if (!Array.isArray) {
-    Array.isArray = function(arg) {
+    Array.isArray = function (arg) {
         return Object.prototype.toString.call(arg) === '[object Array]';
     };
 }
 // remove ， 移除
-Array.prototype.remove = function(value) { //#移除数组中某值
+Array.prototype.remove = function (value) { //#移除数组中某值
     var len = this.length;
     while (len--) {
         if (value === this[len]) {
@@ -78,7 +78,7 @@ Array.prototype.remove = function(value) { //#移除数组中某值
 
 dmp.util = {
 
-    getCursorPosition: function(e) {
+    getCursorPosition: function (e) {
         e = e || window.event;
         var cursor = { x: 0, y: 0 };
 
@@ -95,7 +95,7 @@ dmp.util = {
         return cursor;
     },
 
-    getAbsolutePosition: function(obj) {
+    getAbsolutePosition: function (obj) {
         var curleft = 0;
         var curtop = 0;
         if (obj.offsetParent) {
@@ -108,7 +108,7 @@ dmp.util = {
         return { 'x': curleft, 'y': curtop };
     },
 
-    makeElement: function(htmlTag, attrs) {
+    makeElement: function (htmlTag, attrs) {
         var el = document.createElement(htmlTag);
 
         for (var key in attrs) {
@@ -120,27 +120,27 @@ dmp.util = {
         return el;
     },
 
-    getPxNum: function(val) {
+    getPxNum: function (val) {
         return val.slice(0, val.length - 2);
     },
 
-    disableSelect: function(trueFalse) {
-        document.onselectstart = function() {
+    disableSelect: function (trueFalse) {
+        document.onselectstart = function () {
             return trueFalse;
         }
     },
 
-    hasClass: function(elem, className) {
+    hasClass: function (elem, className) {
         return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
     },
 
-    addClass: function(elem, className) {
+    addClass: function (elem, className) {
         if (!dmp.util.hasClass(elem, className)) {
             elem.className += ' ' + className;
         }
     },
 
-    removeClass: function(elem, className) {
+    removeClass: function (elem, className) {
         var newClass = ' ' + elem.className.replace(/[\t\r\n]/g, ' ') + ' ';
 
         if (dmp.util.hasClass(elem, className)) {
@@ -151,7 +151,7 @@ dmp.util = {
         }
     },
 
-    swapClass: function(elem, oldClass, newClass) {
+    swapClass: function (elem, oldClass, newClass) {
         if (dmp.util.hasClass(elem, oldClass)) {
             var classStr = elem.getAttribute('class');
             classStr = classStr.replace(oldClass, newClass);
@@ -166,7 +166,7 @@ dmp.util = {
 /** feature detection */
 
 dmp.detect = {
-    transforms: function() {
+    transforms: function () {
         var s = document.body.style;
         if (s.transform !== undefined || s.WebkitTransform !== undefined || s.MozTransform !== undefined || s.OTransform !== undefined) {
             return true;
@@ -177,15 +177,15 @@ dmp.detect = {
 };
 
 
-var log = function(msg) {
+var log = function (msg) {
     console.log(msg);
 };
 
 
 // Avoid `console` errors in browsers that lack a console.
-(function() {
+(function () {
     var method;
-    var noop = function() {};
+    var noop = function () { };
     var methods = [
         'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
         'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
@@ -232,7 +232,7 @@ function make_assign() {
     } else {
         return function shimAssign(obj, props1, props2, etc) {
             for (var i = 1; i < arguments.length; i++) {
-                each(Object(arguments[i]), function(val, key) {
+                each(Object(arguments[i]), function (val, key) {
                     obj[key] = val
                 })
             }
@@ -248,7 +248,7 @@ function make_create() {
             return assign.apply(this, [Object.create(obj)].concat(assignArgsList))
         }
     } else {
-        function F() {} // eslint-disable-line no-inner-declarations
+        function F() { } // eslint-disable-line no-inner-declarations
         return function create(obj, assignProps1, assignProps2, etc) {
             var assignArgsList = slice(arguments, 1)
             F.prototype = obj
@@ -270,7 +270,7 @@ function make_trim() {
 }
 
 function bind(obj, fn) {
-    return function() {
+    return function () {
         return fn.apply(obj, Array.prototype.slice.call(arguments, 0))
     }
 }
@@ -280,7 +280,7 @@ function slice(arr, index) {
 }
 
 function each(obj, fn) {
-    pluck(obj, function(key, val) {
+    pluck(obj, function (key, val) {
         fn(key, val)
         return false
     })
@@ -288,7 +288,7 @@ function each(obj, fn) {
 
 function map(obj, fn) {
     var res = (isList(obj) ? [] : {})
-    pluck(obj, function(v, k) {
+    pluck(obj, function (v, k) {
         res[k] = fn(v, k)
         return false
     })
@@ -326,12 +326,12 @@ function isObject(val) {
 }
 
 
-me.hasClass = function(e, c) {
+me.hasClass = function (e, c) {
     var re = new RegExp("(^|\\s)" + c + "(\\s|$)");
     return re.test(e.className);
 };
 
-me.addClass = function(e, c) {
+me.addClass = function (e, c) {
     if (me.hasClass(e, c)) {
         return;
     }
@@ -341,7 +341,7 @@ me.addClass = function(e, c) {
     e.className = newclass.join(' ');
 };
 
-me.removeClass = function(e, c) {
+me.removeClass = function (e, c) {
     if (!me.hasClass(e, c)) {
         return;
     }
@@ -350,12 +350,12 @@ me.removeClass = function(e, c) {
     e.className = e.className.replace(re, ' ');
 };
 
-var isArray = Array.isArray || function(obj) {
+var isArray = Array.isArray || function (obj) {
     return ({}).toString.call(obj) === '[object Array]';
 };
 
 
-var each = function(data, callback) {
+var each = function (data, callback) {
     var i, len;
     if (isArray(data)) {
         for (i = 0, len = data.length; i < len; i++) {
@@ -399,4 +399,46 @@ function singleAddClass(ele, cls) {
 
 function singleRemoveClass(ele, cls) {
     ele.className = ele.className.replace(new RegExp('\\b' + cls + '\\b', 'g'), '');
+}
+//取窗口滚动条高度  
+function getScrollTop() {
+    var scrollTop = 0;
+    if (document.documentElement && document.documentElement.scrollTop) {
+        scrollTop = document.documentElement.scrollTop;
+    }
+    else if (document.body) {
+        scrollTop = document.body.scrollTop;
+    }
+    return scrollTop;
+}
+
+
+//取窗口可视范围的高度
+function getClientHeight() {
+    var clientHeight = 0;
+    if (document.body.clientHeight && document.documentElement.clientHeight) {
+        var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+    }
+    else {
+        var clientHeight = (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+    }
+    return clientHeight;
+}
+
+//取文档内容实际高度
+function getScrollHeight() {
+    return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+}
+
+//测试是否成功
+function test() {
+    if (getScrollTop() + getClientHeight() > getScrollHeight()) {
+
+        alert("到达底部");
+        return true;
+    } else {
+
+        alert("没有到达底部");
+        return false;
+    }
 }
