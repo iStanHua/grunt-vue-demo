@@ -160,24 +160,24 @@ var client = function () {
         }
     }
     //检验iOS版本
-    if(system.mac&&ua.indexOf('Mobile')>-1){
-        if(/CPU (?:iPhone )?OS (\d+_d+)/.test(ua)){
-            system.ios=parseFloat(RegExp.$1.replace('_','.'));
+    if (system.mac && ua.indexOf('Mobile') > -1) {
+        if (/CPU (?:iPhone )?OS (\d+_d+)/.test(ua)) {
+            system.ios = parseFloat(RegExp.$1.replace('_', '.'));
         }
-        else{
-            system.ios=2; //不能真正检验出来，所以只能猜测
+        else {
+            system.ios = 2; //不能真正检验出来，所以只能猜测
         }
     }
     //检验Android版本
-    if(/Android (\d+\.\d+)/.test(ua)){
-        system.android=parseFloat(RegExp.$1);
+    if (/Android (\d+\.\d+)/.test(ua)) {
+        system.android = parseFloat(RegExp.$1);
     }
     //游戏系统
-    system.wii=ua.indexOf('Wii')>-1;
-    system.ps=/playstation/i.test(ua);
-    return{
-        engine:engine,
-        browser:browser,
-        system:system
+    system.wii = ua.indexOf('Wii') > -1;
+    system.ps = /playstation/i.test(ua);
+    return {
+        engine: engine,
+        browser: browser,
+        system: system
     };
 }();

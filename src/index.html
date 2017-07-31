@@ -33,7 +33,7 @@
                 <grid-table :data="gridData" :columns="gridColumns" @update="loadCustomer" @delete="deleteCustomer">
                 </grid-table>
                 <div class="grid-footer">
-                    <a class="btn" @click="loadCustomer()">新增</a>
+                    <a class="btn" @click="loadCustomer">新增</a>
                 </div>
                 <div class="loading" v-show="loading">
                     <div class="loading-spinner"></div>
