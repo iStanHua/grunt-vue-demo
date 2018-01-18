@@ -2,23 +2,23 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>checklist.</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable-style" content="blank" />
-    <meta name="apple-mobile-web-app-title" content="" />
-    <meta name="format-detection" content="telephone=no,email=no" />
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-    <link rel="shortcut icon" href="../favicon.ico" />
-    <!--build:css css/checklist.css-->
-    <link rel="stylesheet" type="text/css" href="css/base.css" />
-    <link rel="stylesheet" type="text/css" href="css/checklist.css" />
-    <!--endbuild-->
-    <!--[if lt IE 9]>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>checklist.</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable-style" content="blank" />
+	<meta name="apple-mobile-web-app-title" content="" />
+	<meta name="format-detection" content="telephone=no,email=no" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link rel="shortcut icon" href="../favicon.ico" />
+	<!--build:css css/checklist.css-->
+	<link rel="stylesheet" type="text/css" href="css/base.css" />
+	<link rel="stylesheet" type="text/css" href="css/checklist.css" />
+	<!--endbuild-->
+	<!--[if lt IE 9]>
     <script type="text/javscript" src="js/lib/html5shiv.js"></script>
     <script type="text/javscript" src="js/lib/respond.js"></script>
     <![endif]-->
@@ -26,12 +26,12 @@
 
 <body>
 
-    <div id="checkListApp">
-        <check-list title="My Checklist" v-on:tasks-changed="synchroniseWithServer" />
-    </div>
+	<div id="checkListApp">
+		<check-list title="My Checklist" v-on:tasks-changed="synchroniseWithServer" />
+	</div>
 
-    <template id="checkListTemplate">
-		<div class="listview">	
+	<template id="checkListTemplate">
+		<div class="listview">
 			<h2 v-if="title">{{ title }}</h2>
 			<span>
 				Total tasks : {{ tasks.length }}
@@ -39,39 +39,24 @@
 			<span>
 				Incomplete tasks : {{ incompleteTasksCount }}
 			</span>
-			<i class="icon i-edit" 
-					 aria-hidden="true"
-					 @click="editing = !editing"></i>
-			<a v-for="task in tasks" 
-				 class="item">
+			<i class="icon i-edit" aria-hidden="true" @click="editing = !editing"></i>
+			<a v-for="task in tasks" class="item">
 				<transition name="fade">
-					<i class="icon i-close" 
-						 aria-hidden="true"
-						 @click="remove(task)"				
-						 v-show="editing"></i>
+					<i class="icon i-close" aria-hidden="true" @click="remove(task)" v-show="editing"></i>
 				</transition>
-				<span @click="toggleDone(task)"
-							class="taskDescription">
+				<span @click="toggleDone(task)" class="taskDescription">
 					{{ task.description }}
-				</span>	
-				<i class="icon i-right" 
-					 aria-hidden="true"
-					 v-if="task.done"
-					 @click="toggleDone(task)"></i>
+				</span>
+				<i class="icon i-right" aria-hidden="true" v-if="task.done" @click="toggleDone(task)"></i>
 			</a>
-			<input type="text" 
-						 v-model="newTaskDescription"
-						 placeholder="New task description here..."
-						 @keyup="checkReturnKey"/>
-			<i class="icon i-favorite button"
-				 aria-hidden="true"
-				 @click="addTask"></i>
+			<input type="text" v-model="newTaskDescription" placeholder="New task description here..." @keyup="checkReturnKey" />
+			<i class="icon i-favorite button" aria-hidden="true" @click="addTask"></i>
 		</div>
-</template>
-    <!--build:js js/checklist.js-->
-    <script type="text/javascript" src="js/lib/vue.js"></script>
-    <script type="text/javascript" src="js/checklist.js"></script>
-    <!--endbuild-->
+	</template>
+	<!--build:js js/checklist.js-->
+	<script type="text/javascript" src="js/lib/vue.js"></script>
+	<script type="text/javascript" src="js/checklist.js"></script>
+	<!--endbuild-->
 </body>
 
 </html>
